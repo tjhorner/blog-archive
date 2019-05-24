@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from blog.horner.tj/hacking-voting-machines-def-con-25/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 May 2019 21:33:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Hacking Voting Machines at DEF CON 25</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../assets/built/screen1b88.css?v=00122ac883" />
+
+    <link rel="shortcut icon" href="../favicon.png" type="image/png" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="TJ&#x27;s Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Hacking Voting Machines at DEF CON 25" />
+    <meta property="og:description" content="Let&#x27;s rig some elections." />
+    <meta property="og:url" content="index.html" />
+    <meta property="og:image" content="../content/images/2018/12/FUckckckkc.png" />
+    <meta property="article:published_time" content="2017-07-30T00:00:00.000Z" />
+    <meta property="article:modified_time" content="2018-12-27T08:41:50.000Z" />
+    <meta property="article:tag" content="Hacking" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hacking Voting Machines at DEF CON 25" />
+    <meta name="twitter:description" content="Let&#x27;s rig some elections." />
+    <meta name="twitter:url" content="index.html" />
+    <meta name="twitter:image" content="../content/images/2018/12/FUckckckkc.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="TJ Horner" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Hacking" />
+    <meta name="twitter:site" content="@tjhorner" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="748" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "TJ&#x27;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.horner.tj/favicon.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "TJ Horner",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://blog.horner.tj/content/images/2018/12/me.png",
+            "width": 460,
+            "height": 460
+        },
+        "url": "https://blog.horner.tj/author/tj/",
+        "sameAs": [
+            "https://tjhorner.com"
+        ]
+    },
+    "headline": "Hacking Voting Machines at DEF CON 25",
+    "url": "https://blog.horner.tj/hacking-voting-machines-def-con-25/",
+    "datePublished": "2017-07-30T00:00:00.000Z",
+    "dateModified": "2018-12-27T08:41:50.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.horner.tj/content/images/2018/12/FUckckckkc.png",
+        "width": 1000,
+        "height": 748
+    },
+    "keywords": "Hacking",
+    "description": "Let&#x27;s rig some elections.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.horner.tj/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min1b88.js?v=00122ac883"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "2c1229b79bb5"
+});
+</script>
+    <meta name="generator" content="Ghost 2.22" />
+    <link rel="alternate" type="application/rss+xml" title="TJ&#x27;s Blog" href="../rss/index.html" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-55486313-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body class="post-template tag-hacking">
+
+    <div class="site-wrapper">
+
+        
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+                <a class="site-nav-logo" href="../index.html">TJ&#x27;s Blog</a>
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="../index.html">Home</a></li>
+    <li class="nav-about-me" role="menuitem"><a href="https://tjhorner.com/">About Me</a></li>
+    <li class="nav-portfolio" role="menuitem"><a href="https://tjhorner.com/portfolio">Portfolio</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+                <a class="social-link social-link-tw" href="https://twitter.com/tjhorner" title="Twitter" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            <a class="social-link social-link-gh" href="https://github.com/tjhorner" title="GitHub" target="_blank" rel="noopener"><svg style="width:20px;height:20px" viewBox="0 0 24 24">
+    <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" />
+</svg></a>
+            <a class="social-link social-link-tg" href="https://t.me/bcrypt" title="Telegram" target="_blank" rel="noopener"><svg style="width:20px;height:20px" viewBox="0 0 24 24">
+    <path d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
+</svg></a>
+            <a class="social-link social-link-em" href="../cdn-cgi/l/email-protection.html#32505e5d55725a5d405c57401c4658" title="Email" target="_blank" rel="noopener"><svg style="width:20px;height:20px" viewBox="0 0 24 24">
+    <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+</svg></a>
+        </div>
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+    </div>
+</nav>
+    </div>
+</header>
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post tag-hacking ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="2017-07-29">29 July 2017</time>
+                        <span class="date-divider">/</span> <a href="../tag/hacking/index.html">Hacking</a>
+                </section>
+                <h1 class="post-full-title">Hacking Voting Machines at DEF CON 25</h1>
+            </header>
+
+            <figure class="post-full-image" style="background-image: url(../content/images/2018/12/FUckckckkc.png)">
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <p>DEF CON 25 was my first DEF CON, and it was totally amazing. There was a first-time village called the “Voting Village”. It was a village where you can join in the fun of breaking into various voting registration and ballot machines. My friend Sean and I saw this village in the con book and first decided we would walk around to see everyone’s progress for around 30 minutes before attending a talk. Little did we know, it would turn into an ~8 hour hacking session on voting machines.</p><h1 id="the-machine">The Machine</h1><p>We decided to work on the <a href="http://www.essvote.com/products/5/11/electronic-poll-books/expresspoll-5000®/">ExpressPoll 5000</a> voter registration machine since nobody had made any real progress on it.</p><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/image-1.png" class="kg-image"></figure><p>It uses an ancient PCMCIA/CF slot to transfer data and hold various database files on it. Luckily, the village provided a ton of PCMCIA cards to play around with and a PCMCIA to USB converter so we could use it as a storage device on our laptops.</p><h1 id="general-discoveries">General Discoveries</h1><p>Here is a list of discoveries that we found useful in exploiting the device:</p><ul><li>It runs Windows CE 5.0</li><li>ExpressPoll software is a giant .NET app with the assembly name <code>ExPoll</code></li><li>ExpressPoll software uses WinForms for UI</li><li>Bootloader is proprietary</li><li>Processor’s architecture is ARM</li><li>Database file is stored on memory card (more details later)</li></ul><h1 id="the-exploits">The Exploits</h1><p>Several exploits were tested against this, such as the usual suspects: buffer overflow, Windows key shortcuts, network exploits, etc. Here is what worked and what didn’t.</p><h2 id="arbitrary-firmware-injection">Arbitrary Firmware Injection</h2><p>When the memory card is inserted into the machine and it boots up, the bootloader first checks for a file called <code>NK.BIN</code>. If this file is found, it will attempt to load it into RAM and boot into it with <em>absolutely no signature verification</em>. The firmware is then flashed and is permanent upon next boot.</p><p>The <code>NK.BIN</code> file is generally a Windows CE 5.0 update for the machine bundled with the ExpressPoll software, but an attacker is able to upload and run any custom NT kernel, and possibly a Linux image (untested thus far).</p><p>We tested this on our ExpressPoll 5000, and sure enough, it loaded our Windows CE without complaining:</p><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/image-2.png" class="kg-image"></figure><h2 id="arbitrary-bootloader-injection">Arbitrary Bootloader Injection</h2><p>Very similar to the firmware injection exploit, the bootloader also checks for an update to itself while booting, with the file name <code>EBOOT.BIN</code>. It is also loaded without signature verification, but we have not been able to get a bootloader to successfully work on a machine. However, the bootloader injection itself is confirmed to work since the bootloader we put onto the <code>EBOOT.BIN</code>file is indeed flashed and is present upon reboot without the memory card. This also means we basically bricked the thing (we had to get another, heh).</p><h2 id="-net-resources-file-override">.NET <code>.resources</code> File Override</h2><p>When the ExpressPoll software is “launched” from the “Launch Express Poll” button, it reads the memory card for a file named <code>ExPoll.resources</code>. This is a resources file defining any resources that the app will use, such as translation strings, images, buttons, layouts, etc. It would generally be used for overriding and customizing the registration process (for example, adding your own logo instead of having the Diebold logo.)</p><p>The weak point in this system is that buttons (and potentially other UI elements) can be overriden to take different actions, such as run an executable stored on the memory card (which is mounted in something like <code>/Storage Card</code>) or run a command.</p><p>If an <code>ExPoll.resources</code> file is found, it will first load it into memory, use it for that session, and also copy it to the device’s internal memory so it can be used again.</p><p>This vulnerability was confirmed by creating a random .NET <code>.resources</code> file, naming it <code>ExPoll.resources</code> and copying to the memory card. We popped it into the machine, pressed the “Launch Express Poll” button, and (as expected), it errored. Woohoo! It loaded the file. Sadly, since it also copied to memory, it is essentially bricked if you give it a bad file (you can’t get to the “Launch Express Poll” button). Sadly, this was the case with our device so I don’t have any images of it in this state.</p><h1 id="the-vulnerabilities">The Vulnerabilities</h1><p>Along with the exploits described above, we have found many security vulnerabilities that can enable several types of attacks.</p><h2 id="hard-coded-username-password">Hard-coded Username/Password</h2><p>When you launch the ExpressPoll software, you are required to enter a consolidation number, plus a username/password.</p><p>There is one hard-coded into the software that always works:</p><ul><li>Username: <code>1</code></li><li>Password: <code>1111</code></li></ul><p>Brilliant.</p><h2 id="unencrypted-sqlite3-database">Unencrypted SQLite3 Database</h2><p>When starting the ExpressPoll software, it looks for a file called <code>PollData.db3</code> on the memory card. This is an standard unencrypted SQLite3 database, including <em>literally all the information</em>. Polls, parties, voters, all of it. (Link coming soon with sample database.) Using this information, an attacker could launch several types of attacks:</p><ul><li>Data exfiltrationFor example, the attacker could easily come with a card that has an empty database, and silently swap out the card when they register to vote, thus obtaining the entire voter database (which includes: name, address, last 4 of SSN, signature, and many others) for the county.</li><li>Falsifying voter informationFor example, the attacker could forge their own database with fake voter information (e.g. change their parties/signatures, etc.) and place it into the machine when they register to vote.</li><li>Other attacks. Your imagination is the limit when you have access to the entire database.</li></ul><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/image-3.png" class="kg-image"></figure><h2 id="2-open-usb-ports">2 Open USB Ports</h2><p>These pose less of a threat, but it is still threatening. An attacker could plug any USB device they wanted (for example, a USB Rubber Ducky or LAN Turtle) to launch a creative attack. I have tested this with my Bash Bunny by spamming the letter “a” infinitely into one of the text boxes in an attempt to trigger a buffer overflow and potentially crash the .NET app (it didn’t work).</p><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/image-4.png" class="kg-image"></figure><h2 id="default-wince-web-server">Default WinCE Web Server</h2><p>The default Windows CE web server is open on port 80, which poses a possible security risk (among the others lol). Nothing has been confirmed using this server, so further research is required.</p><h1 id="other-attempted-attacks">Other Attempted Attacks</h1><p>We attempted some other attacks, but they didn’t work.</p><h2 id="memory-overflow">Memory Overflow</h2><p>Using a Bash Bunny, I wrote a payload to spam the letter “a” infinitely into a text box, and plugged it into the machine for around an hour. Time stopped and everything got super slow, but nothing crashed.</p><h2 id="memory-overflow-again-">Memory Overflow (again)</h2><p>Using the <code>ConsolidationMaps</code> table on the aforementioned SQLite3 database, I changed a map image to something outrageous in size (&gt;1GB) and loaded it up. It didn’t exit the .NET app like I expected. It errored (with a <code>malloc()</code> out-of-memory error) but did not crash the .NET app. It simply restarted.</p><h2 id="installing-grub-almost-worked-">Installing Grub (almost worked)</h2><p>We attempted to create a Grub image for the ARM architecture, but we couldn’t finish building it before the village closed. If you have access to an ARM Grub image and an ExpressPoll 5000, try to install it using the <code>EBOOT.BIN</code> trick described above. Ping me if it works :)</p><h1 id="conclusion">Conclusion</h1><p>DEF CON 25 was super fun, and this was definitely my favorite part. If you have any questions about this, er, research, let me know on Twitter: <a href="https://twitter.com/tjhorner">@tjhorner</a>.</p><h1 id="credits">Credits</h1><p>I couldn’t have done this without the help of others that joined our team later on, they were super helpful:</p><ul><li>Ian Smith</li><li>Morgan Jones</li><li>Thomas Fulmer</li><li>Yilen Pan</li><li>Sean Roach (<a href="https://twitter.com/TheEdgyDev">@TheEdgyDev</a>)</li><li>Some others (lmk if you belong here, I’m not good with names)</li></ul><h1 id="various-images">Various Images</h1><p>Here are all of the images I took while hacking these machines: <a href="https://goo.gl/photos/baSp4QDVYGABfMxV8">Google Photos Album</a></p><p>You are allowed to use these photos freely, so long as you credit me with my Twitter username (@tjhorner) and a link back to this blog post.</p>
+                </div>
+            </section>
+
+            <section class="subscribe-form">
+                <h3 class="subscribe-form-title">Subscribe to TJ&#x27;s Blog</h3>
+                <p>Get the latest posts delivered right to your inbox</p>
+                <form method="post" action="https://blog.horner.tj/subscribe/" id="" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email" placeholder="youremail@example.com" />
+    </div>
+    <button id="" class="" type="submit"><span>Subscribe</span></button>
+    
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function(g,h,o,s,t){
+        var buster = function(b,m) {
+            h[o]('input.'+b).forEach(function (i) {
+                i.value=i.value || m;
+            });
+        };
+        buster('location', g.location.href);
+        buster('referrer', h.referrer);
+    })(window,document,'querySelectorAll','value');
+</script>
+
+</form>
+
+
+            </section>
+
+            <footer class="post-full-footer">
+
+
+                    
+<section class="author-card">
+        <img class="author-profile-image" src="../content/images/2018/12/me.png" alt="TJ Horner" />
+    <section class="author-card-content">
+        <h4 class="author-card-name"><a href="../author/tj/index.html">TJ Horner</a></h4>
+            <p>18-year-old self-taught developer, hacker, and maker</p>
+    </section>
+</section>
+<div class="post-full-footer-right">
+    <a class="author-card-button" href="../author/tj/index.html">Read More</a>
+</div>
+
+
+            </footer>
+
+            <section class="post-full-comments">
+                <div id="disqus_thread"></div>
+                <script>
+                var disqus_config = function () {
+                this.page.url = "index.html";
+                this.page.identifier = "ghost-5c23f6a71cb73200019c3387";
+                };
+
+                (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://tjs-blog.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+                </script>
+
+                <noscript>Please enable JavaScript to view comments.</noscript>
+            </section>
+
+        </article>
+
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+                <article class="read-next-card"
+                            style="background-image: url(../content/images/2018/12/great.jpg)"
+                >
+                    <header class="read-next-card-header">
+                        <small class="read-next-card-header-sitetitle">&mdash; TJ&#x27;s Blog &mdash;</small>
+                        <h3 class="read-next-card-header-title"><a href="../tag/hacking/index.html">Hacking</a></h3>
+                    </header>
+                    <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                    <div class="read-next-card-content">
+                        <ul>
+                            <li><a href="../hacking-chinese-drones-for-fun-and-no-profit/index.html">Hacking Chinese Drones for Fun and (No) Profit</a></li>
+                            <li><a href="../back-to-school-vulnerabilities/index.html">Back to School Vulnerabilities</a></li>
+                        </ul>
+                    </div>
+                    <footer class="read-next-card-footer">
+                        <a href="../tag/hacking/index.html">See all 2 posts →</a>
+                    </footer>
+                </article>
+
+                <article class="post-card post tag-projects tag-hacking featured">
+        <a class="post-card-image-link" href="../hacking-chinese-drones-for-fun-and-no-profit/index.html">
+            <div class="post-card-image" style="background-image: url(../content/images/2018/12/shark.png)"></div>
+        </a>
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="../hacking-chinese-drones-for-fun-and-no-profit/index.html">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Projects</span>
+                <h2 class="post-card-title">Hacking Chinese Drones for Fun and (No) Profit</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Reverse engineering a WiFi-enabled Chinese drone to figure out how to control it from my own software.</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+
+            <ul class="author-list">
+                <li class="author-list-item">
+
+                    <div class="author-name-tooltip">
+                        TJ Horner
+                    </div>
+
+                        <a href="../author/tj/index.html" class="static-avatar"><img class="author-profile-image" src="../content/images/2018/12/me.png" alt="TJ Horner" /></a>
+                </li>
+            </ul>
+
+            <span class="reading-time">
+                <span class="post-card-featured">Featured</span>
+            4 min read</span>
+
+        </footer>
+    </div>
+</article>
+
+                <article class="post-card post tag-workshops">
+        <a class="post-card-image-link" href="../intro-to-node-telegram-bot/index.html">
+            <div class="post-card-image" style="background-image: url(../content/images/2018/12/botfather.jpg)"></div>
+        </a>
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="../intro-to-node-telegram-bot/index.html">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Workshops</span>
+                <h2 class="post-card-title">Intro to Node.js: Making a Telegram Bot</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Learn how to make a simple Telegram bot in this short workshop.</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+
+            <ul class="author-list">
+                <li class="author-list-item">
+
+                    <div class="author-name-tooltip">
+                        TJ Horner
+                    </div>
+
+                        <a href="../author/tj/index.html" class="static-avatar"><img class="author-profile-image" src="../content/images/2018/12/me.png" alt="TJ Horner" /></a>
+                </li>
+            </ul>
+
+            <span class="reading-time">7 min read</span>
+
+        </footer>
+    </div>
+</article>
+
+        </div>
+    </div>
+</aside>
+
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="../index.html">
+                <img src="../content/images/2018/12/smol.png" alt="TJ&#x27;s Blog icon" />
+            <span>TJ&#x27;s Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Hacking Voting Machines at DEF CON 25</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/intent/tweet?text=Hacking%20Voting%20Machines%20at%20DEF%20CON%2025&amp;url=https%3A%2F%2Fblog.horner.tj%2Fhacking-voting-machines-def-con-25%2F&amp;original_referer=http%3A%2F%2Fblog.horner.tj%2Fhacking-voting-machines-def-con-25%2F"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+        </a>
+        <a class="floating-header-share-fb" href="https://m.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.horner.tj%2Fhacking-voting-machines-def-con-25%2F"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+        </a>
+    </div>
+    <progress id="reading-progress" class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+
+
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://tjhorner.com/">TJ Horner</a> &copy; 2018-2019 (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>)</section>
+                <nav class="site-footer-nav">
+                    <a href="../index.html">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/tjhorner" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="subscribe" class="subscribe-overlay">
+        <a class="subscribe-overlay-close" href="#"></a>
+        <div class="subscribe-overlay-content">
+            <h1 class="subscribe-overlay-title">Subscribe to TJ&#x27;s Blog</h1>
+            <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+            <form method="post" action="https://blog.horner.tj/subscribe/" id="" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email" placeholder="youremail@example.com" />
+    </div>
+    <button id="" class="" type="submit"><span>Subscribe</span></button>
+    
+<script>
+    (function(g,h,o,s,t){
+        var buster = function(b,m) {
+            h[o]('input.'+b).forEach(function (i) {
+                i.value=i.value || m;
+            });
+        };
+        buster('location', g.location.href);
+        buster('referrer', h.referrer);
+    })(window,document,'querySelectorAll','value');
+</script>
+
+</form>
+
+
+            <p class="subscribe-overlay-rss">You can also use the <a href="../rss/index.html" target="_blank" rel="noopener">RSS feed</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        var images = document.querySelectorAll('.kg-gallery-image img');
+        images.forEach(function (image) {
+            var container = image.closest('.kg-gallery-image');
+            var width = image.attributes.width.value;
+            var height = image.attributes.height.value;
+            var ratio = width / height;
+            container.style.flex = ratio + ' 1 0%';
+        })
+    </script>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="../assets/built/jquery.fitvids1b88.js?v=00122ac883"></script>
+
+
+    <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('#reading-progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
+</script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<!-- Override styles set by prism -->
+<style>
+    .post-full-content pre { margin: 1.5em 0 3em !important }
+    .post-full-content p code { word-break: keep-all !important }
+</style>
+
+</body>
+
+<!-- Mirrored from blog.horner.tj/hacking-voting-machines-def-con-25/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 May 2019 21:33:19 GMT -->
+</html>

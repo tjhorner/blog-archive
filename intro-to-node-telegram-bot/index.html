@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from blog.horner.tj/intro-to-node-telegram-bot/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 May 2019 21:33:19 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Intro to Node.js: Making a Telegram Bot</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../assets/built/screen1b88.css?v=00122ac883" />
+
+    <link rel="shortcut icon" href="../favicon.png" type="image/png" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="TJ&#x27;s Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Intro to Node.js: Making a Telegram Bot" />
+    <meta property="og:description" content="Learn how to make a simple Telegram bot in this short workshop." />
+    <meta property="og:url" content="index.html" />
+    <meta property="og:image" content="../content/images/2018/12/botfather.jpg" />
+    <meta property="article:published_time" content="2016-09-16T00:00:00.000Z" />
+    <meta property="article:modified_time" content="2018-12-30T00:13:06.000Z" />
+    <meta property="article:tag" content="Workshops" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Intro to Node.js: Making a Telegram Bot" />
+    <meta name="twitter:description" content="Learn how to make a simple Telegram bot in this short workshop." />
+    <meta name="twitter:url" content="index.html" />
+    <meta name="twitter:image" content="../content/images/2018/12/botfather.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="TJ Horner" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Workshops" />
+    <meta name="twitter:site" content="@tjhorner" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="1000" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "TJ&#x27;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.horner.tj/favicon.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "TJ Horner",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://blog.horner.tj/content/images/2018/12/me.png",
+            "width": 460,
+            "height": 460
+        },
+        "url": "https://blog.horner.tj/author/tj/",
+        "sameAs": [
+            "https://tjhorner.com"
+        ]
+    },
+    "headline": "Intro to Node.js: Making a Telegram Bot",
+    "url": "https://blog.horner.tj/intro-to-node-telegram-bot/",
+    "datePublished": "2016-09-16T00:00:00.000Z",
+    "dateModified": "2018-12-30T00:13:06.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.horner.tj/content/images/2018/12/botfather.jpg",
+        "width": 1000,
+        "height": 1000
+    },
+    "keywords": "Workshops",
+    "description": "Learn how to make a simple Telegram bot in this short workshop.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.horner.tj/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min1b88.js?v=00122ac883"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "2c1229b79bb5"
+});
+</script>
+    <meta name="generator" content="Ghost 2.22" />
+    <link rel="alternate" type="application/rss+xml" title="TJ&#x27;s Blog" href="../rss/index.html" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-55486313-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body class="post-template tag-workshops">
+
+    <div class="site-wrapper">
+
+        
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+                <a class="site-nav-logo" href="../index.html">TJ&#x27;s Blog</a>
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="../index.html">Home</a></li>
+    <li class="nav-about-me" role="menuitem"><a href="https://tjhorner.com/">About Me</a></li>
+    <li class="nav-portfolio" role="menuitem"><a href="https://tjhorner.com/portfolio">Portfolio</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+                <a class="social-link social-link-tw" href="https://twitter.com/tjhorner" title="Twitter" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            <a class="social-link social-link-gh" href="https://github.com/tjhorner" title="GitHub" target="_blank" rel="noopener"><svg style="width:20px;height:20px" viewBox="0 0 24 24">
+    <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" />
+</svg></a>
+            <a class="social-link social-link-tg" href="https://t.me/bcrypt" title="Telegram" target="_blank" rel="noopener"><svg style="width:20px;height:20px" viewBox="0 0 24 24">
+    <path d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
+</svg></a>
+            <a class="social-link social-link-em" href="../cdn-cgi/l/email-protection.html#3d5f51525a7d55524f53584f134957" title="Email" target="_blank" rel="noopener"><svg style="width:20px;height:20px" viewBox="0 0 24 24">
+    <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+</svg></a>
+        </div>
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+    </div>
+</nav>
+    </div>
+</header>
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post tag-workshops ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="2016-09-15">15 September 2016</time>
+                        <span class="date-divider">/</span> <a href="../tag/workshops/index.html">Workshops</a>
+                </section>
+                <h1 class="post-full-title">Intro to Node.js: Making a Telegram Bot</h1>
+            </header>
+
+            <figure class="post-full-image" style="background-image: url(../content/images/2018/12/botfather.jpg)">
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <p>In this workshop, we will create a simple Telegram bot that tells us how long until CodeDay ends using Node.js, the <a href="https://core.telegram.org/bots/api">Telegram API</a>, and the <a href="http://docs.clear.codeday.org/">Clear API</a>.</p><p><em>This post is intended to serve as a guide for my CodeDay workshop, but if you’d like to use this to make your own Telegram bot with Node.js, go right ahead :)</em></p><p>This article is split into parts. If you’d like to jump to a certain part, use these links:</p><ul><li><a href="#part-i-chat-bot">Part I: Chat bot</a></li><li><a href="#part-ii-inline-bot">Part II: Inline bot</a></li><li><a href="#part-iii-conclusion">Part III: Conclusion</a></li></ul><h1 id="part-i-chat-bot">Part I: Chat bot</h1><p>Telegram has two types of bots: chat bots and inline bots. Chat bots use commands (such as <strong>/start</strong>, <strong>/help</strong>, etc.) to interact with users. Inline bots can instead be called from anywhere and help users find and send content to any chat they wish. This section covers chat bots.</p><h3 id="step-0-1-acquire-node-js-and-npm">Step 0.1: Acquire Node.js and npm</h3><p>You should have already done this before the event, but it’s a pretty small download if you still need to get it. Here are links to the version of Node.js we will be using for this workshop:</p><ul><li><strong>Windows</strong>: <a href="https://nodejs.org/dist/v6.6.0/node-v6.6.0-x64.msi">https://nodejs.org/dist/v6.6.0/node-v6.6.0-x64.msi</a></li><li><strong>macOS</strong>: <a href="https://nodejs.org/dist/v6.6.0/node-v6.6.0.pkg">https://nodejs.org/dist/v6.6.0/node-v6.6.0.pkg</a></li><li><strong>Linux</strong>: You should already know how to get Node.js.</li></ul><h3 id="step-0-2-get-telegram">Step 0.2: Get Telegram</h3><p>Since we’re making a Telegram bot, you’ll need a Telegram account. Head over to<a href="https://telegram.org/dl">telegram.org/dl</a> and create your account.</p><h3 id="step-1-set-up-your-project-directory">Step 1: Set up your project directory</h3><p>Now that we have Node.js and npm installed and our Telegram account is ready, we can start with the project. Open up your preferred terminal and run these commands:</p><pre><code class="language-bash">mkdir codeday-telegram-bot
+cd codeday-telegram-bot
+</code></pre>
+<p>Now we have a directory for our Telegram bot, but we need a package.json, this tells npm information about our project. To do this, (in the same terminal window) we need to run this:</p><pre><code class="language-bash">npm init
+</code></pre>
+<p>This command will tell npm to initialize a pre-made package.json in our project directory. Just hit enter at all of the prompts, we can worry about those later.</p><h3 id="step-2-install-necessary-packages">Step 2: Install necessary packages</h3><p>For this project, we will only need one npm package. An npm package is essentially a piece of code (“package”) in the npm registry that we can download with a simple command, <code>npm install</code>.</p><p>We’re going to use a package called <code>node-telegram-bot-api</code>, we can install it like so:</p><pre><code class="language-bash">npm install --save node-telegram-bot-api
+</code></pre>
+<p>The <code>--save</code> part signals npm to save this package to our package.json so it is easily installed later, along with any other dependencies that our package may need.</p><h3 id="step-3-get-a-telegram-bot-token">Step 3: Get a Telegram bot token</h3><p>Using Telegram, contact <a href="https://telegram.me/Botfather">@botfather</a> and use the <strong>/newbot</strong> command to create a new bot. Name it whatever you’d like with any username, it doesn’t matter.</p><h3 id="step-4-write-some-code-">Step 4: Write some code!</h3><p>Now that we have our bot token, we can use it to interface with the Telegram Bot API.</p><p>Create an index.js file in your project directory, then open it in your favorite text editor. Here’s some simple “Hello world” boilerplate code I’ve written to assist with this step:</p><pre><code class="language-javascript">var TelegramBot = require('node-telegram-bot-api'),
+    // Be sure to replace YOUR_BOT_TOKEN with your actual bot token on this line.
+    telegram = new TelegramBot(&quot;YOUR_BOT_TOKEN&quot;, { polling: true });
+
+telegram.on(&quot;text&quot;, (message) =&gt; {
+  telegram.sendMessage(message.chat.id, &quot;Hello world&quot;);
+});
+</code></pre>
+<p>Essentially, what this code does is include the library we downloaded from npm earlier, then instantiated a new <code>TelegramBot</code> object with our token and told it to poll for updates from Telegram. Then it will listen for the “text” event (which, in this library, is a simple text message) and then send a message to the chat the original message was saved saying “Hello world”.</p><p>Now, run the index.js file with this command:</p><pre><code class="language-bash">node index
+</code></pre>
+<p>Send your bot a message. It should reply with “Hello world”. If it does, awesome! If it doesn’t, ask me (if you’re attending this workshop in person, that is).</p><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/hello-world.png" class="kg-image"></figure><h3 id="step-5-implement-a-simple-command">Step 5: Implement a simple command</h3><p>In its current state, this bot is not very useful. Let’s make it useful, how about by adding a <strong>/codeday</strong> command that tells us when CodeDay ends! We will be utilizing two more libraries here, <strong>codeday-clear</strong> and <strong>moment</strong>. <strong>codeday-clear</strong> is the official Node.js library for interacting with the Clear API. Clear is our internal CodeDay management system and has a very nice API. We will be using this API to get the ending date of CodeDay and then use <strong>moment</strong> to convert it into a human-readable format.</p><p>To install these libraries:</p><pre><code class="language-bash">npm install --save codeday-clear moment
+</code></pre>
+<p>In our code, we then need to include these two libraries and instantiate a <code>Clear</code> instance. Since the Clear API requires access to Clear and an API token/secret pair, I have created a sample app with limited permissions for the purpose of this workshop:</p><ul><li><strong>Token</strong>: 1YZiGaj3baaLU8IKVsASRIWaNF2oJNg0</li><li><strong>Secret</strong>: 1COMnWyGnGBsNqkhaZ6WMBWB9UWZw6QZ</li></ul><p>Here’s what it should look like:</p><pre><code class="language-javascript">var Clear = require('codeday-clear'),
+    // Our sample app token and secret
+    clear = new Clear(&quot;1YZiGaj3baaLU8IKVsASRIWaNF2oJNg0&quot;, &quot;1COMnWyGnGBsNqkhaZ6WMBWB9UWZw6QZ&quot;);
+
+// moment is not a class, just a simple function
+var moment = require('moment');
+</code></pre>
+<p>This code should go right after where we declare the <code>telegram</code> instance (this should be line 3 if you are following along). Now that we have our Clear and moment instances declared, we can use them in a simple command. Let’s replace the code inside of the “text” event with something like this:</p><pre><code class="language-javascript">telegram.on(&quot;text&quot;, (message) =&gt; {
+  if(message.text.toLowerCase().indexOf(&quot;/codeday&quot;) === 0){
+    clear.getEventById(&quot;oo4QIuKQQTYA&quot;, (codedayEvent) =&gt; {
+      var endsAt = moment(codedayEvent.ends_at * 1000);
+      telegram.sendMessage(message.chat.id, &quot;CodeDay ends &quot; + endsAt.fromNow() + &quot;!&quot;);
+    });
+  }
+});
+</code></pre>
+<p>Here’s a breakdown of what’s happening here:</p><ul><li>We check with the JavaScript <code>indexOf</code> function if the message starts with /codeday</li><li>If it does, we tell the Clear library to grab the event with ID oo4QIuKQQTYA (that’s San Diego Fall 2016’s ID)</li><li>We use a callback function once it gets the event, and then parse the <code>ends_at</code> date with moment. (We multiply it by 1000 to convert it to milliseconds (which moment understands), since Clear sends this date in a UNIX timestamp format.)</li><li>We then use moment’s <code>fromNow</code> function to get the relative time (e.g. “in 10 hours”) of the <code>endsAt</code> date and then send that all through the Telegram API.</li></ul><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/simple-command.png" class="kg-image"></figure><h3 id="step-6-getting-fancy-with-markdown">Step 6: Getting fancy with Markdown</h3><p>Telegram supports messages sent with <strong>Markdown</strong>, a simple way to format text. Let’s make the end date bold as an example.</p><p>In Telegram’s version of Markdown, we will surround the text we want to bold with asterisks, so the raw message we send to Telegram should look something like this:</p><blockquote><em>CodeDay ends *in 2 months*!</em></blockquote><p>To implement this, it’s rather simple; all we need to do is surround the end date in asterisks and then pass the <code>parse_mode</code> parameter to the Telegram API and set it to “Markdown”, this will tell the Telegram API that we want the text to render as Markdown.</p><p>The modified code could look something like this:</p><pre><code class="language-javascript">telegram.sendMessage(message.chat.id, &quot;CodeDay ends *&quot; + endsAt.fromNow() + &quot;*!&quot;, {
+  parse_mode: &quot;Markdown&quot;
+});
+</code></pre>
+<p>Now when we run the <strong>/codeday</strong> command, it will look like this instead:</p><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/markdown.png" class="kg-image"></figure><p>Telegram also supports italics, inline code, code blocks, and inline URLs along with the bold option we just used.</p><h1 id="part-ii-inline-bot">Part II: Inline bot</h1><p>This section will cover how to turn this bot into an inline bot, which can be called from anywhere and help users find and send content from your bot.</p><h3 id="step-0-enable-inline-mode-in-botfather">Step 0: Enable inline mode in Botfather</h3><p>Bots don’t have inline mode enabled by default, so you need to send the <strong>/setinline</strong> command to Botfather to enable it. You can use anything as your placeholder text, but I used “Search CodeDays…” as mine.</p><figure class="kg-card kg-image-card"><img src="../content/images/2018/12/botfather-setinline.png" class="kg-image"></figure><p>After you enable inline mode, you may need to restart whatever Telegram client you’re using for the changes to take effect (since they’re cached). Once you restart, type your bot’s username then a space. If you see the placeholder text you set, you’re ready for the next step.</p><h3 id="step-1-implement-inline-queries">Step 1: Implement inline queries</h3><p>Now we need to tell our script how to react to inline queries. To do this, here’s some boilerplate “Hello world” code I’ve written to simplify the process:</p><pre><code class="language-javascript">telegram.on(&quot;inline_query&quot;, (query) =&gt; {
+  telegram.answerInlineQuery(query.id, [
+    {
+      type: &quot;article&quot;,
+      id: &quot;testarticle&quot;,
+      title: &quot;Hello world&quot;,
+      input_message_content: {
+        message_text: &quot;Hello, world! This was sent from my super cool inline bot.&quot;
+      }
+    }
+  ]);
+});
+</code></pre>
+<p>Here’s how it works:</p><ul><li>Upon an inline query…</li><li>Respond with an array with 1 “article” result…</li><li>Which has a title of “Hello world” and sends the message “Hello, world! This was sent from my super cool inline bot.”</li></ul><h3 id="step-2-implement-clear-api">Step 2: Implement Clear API</h3><p>Now let’s actually make it show the CodeDay events. We need to iterate over every event and turn them into an object the Telegram API understands, so you could have something like this:</p><pre><code class="language-javascript">telegram.on(&quot;inline_query&quot;, (query) =&gt; {
+  var searchTerm = query.query.trim();
+
+  clear.getRegions((regions) =&gt; {
+    var queryResults = [ ];
+
+    regions.forEach((region) =&gt; {
+      if(region.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 &amp;&amp; region.current_event &amp;&amp; region.current_event.venue){
+        queryResults.push({
+          type: &quot;article&quot;,
+          id: region.id,
+          title: &quot;CodeDay &quot; + region.name,
+          description: &quot;Hosted at &quot; + region.current_event.venue.full_address,
+          input_message_content: {
+            latitude: region.location.lat,
+            longitude: region.location.lng,
+            title: &quot;CodeDay &quot; + region.name,
+            address: region.current_event.venue.full_address
+          }
+        });
+      }
+    });
+
+    telegram.answerInlineQuery(query.id, queryResults);
+  });
+});
+</code></pre>
+<p>So what we’re doing here is…</p><ul><li>Upon an inline query…</li><li>Ask Clear for a list of events…</li><li>Then turn those events into objects the Telegram API can understand…</li><li>And make the message content the venue the CodeDay is at.</li><li>Add the result to the results array.</li><li>Send the results back to the API.</li></ul><h1 id="part-iii-conclusion">Part III: Conclusion</h1><p>Now that you know the basics of bot creation, I encourage you to play around with Telegram’s bot API and make something awesome with it! You can make games, tools, calculators(?)… anything, really. Go check out the docs and see what you can build! <a href="https://core.telegram.org/bots/api">Telegram Bot API Manual</a></p><p><strong>And remember, have fun!</strong></p><h3 id="source">Source</h3><p>The complete source of the code used in this article is available on GitHub here: <a href="https://github.com/tjhorner/telegram-bot-example">https://github.com/tjhorner/telegram-bot-example</a></p><p>Feel free to use it however you'd like, except for world domination.<br></p>
+                </div>
+            </section>
+
+            <section class="subscribe-form">
+                <h3 class="subscribe-form-title">Subscribe to TJ&#x27;s Blog</h3>
+                <p>Get the latest posts delivered right to your inbox</p>
+                <form method="post" action="https://blog.horner.tj/subscribe/" id="" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email" placeholder="youremail@example.com" />
+    </div>
+    <button id="" class="" type="submit"><span>Subscribe</span></button>
+    
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function(g,h,o,s,t){
+        var buster = function(b,m) {
+            h[o]('input.'+b).forEach(function (i) {
+                i.value=i.value || m;
+            });
+        };
+        buster('location', g.location.href);
+        buster('referrer', h.referrer);
+    })(window,document,'querySelectorAll','value');
+</script>
+
+</form>
+
+
+            </section>
+
+            <footer class="post-full-footer">
+
+
+                    
+<section class="author-card">
+        <img class="author-profile-image" src="../content/images/2018/12/me.png" alt="TJ Horner" />
+    <section class="author-card-content">
+        <h4 class="author-card-name"><a href="../author/tj/index.html">TJ Horner</a></h4>
+            <p>18-year-old self-taught developer, hacker, and maker</p>
+    </section>
+</section>
+<div class="post-full-footer-right">
+    <a class="author-card-button" href="../author/tj/index.html">Read More</a>
+</div>
+
+
+            </footer>
+
+            <section class="post-full-comments">
+                <div id="disqus_thread"></div>
+                <script>
+                var disqus_config = function () {
+                this.page.url = "index.html";
+                this.page.identifier = "ghost-5c24908a1cb73200019c342b";
+                };
+
+                (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://tjs-blog.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+                </script>
+
+                <noscript>Please enable JavaScript to view comments.</noscript>
+            </section>
+
+        </article>
+
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+
+                <article class="post-card post tag-hacking">
+        <a class="post-card-image-link" href="../hacking-voting-machines-def-con-25/index.html">
+            <div class="post-card-image" style="background-image: url(../content/images/2018/12/FUckckckkc.png)"></div>
+        </a>
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="../hacking-voting-machines-def-con-25/index.html">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Hacking</span>
+                <h2 class="post-card-title">Hacking Voting Machines at DEF CON 25</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Let's rig some elections.</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+
+            <ul class="author-list">
+                <li class="author-list-item">
+
+                    <div class="author-name-tooltip">
+                        TJ Horner
+                    </div>
+
+                        <a href="../author/tj/index.html" class="static-avatar"><img class="author-profile-image" src="../content/images/2018/12/me.png" alt="TJ Horner" /></a>
+                </li>
+            </ul>
+
+            <span class="reading-time">6 min read</span>
+
+        </footer>
+    </div>
+</article>
+
+                <article class="post-card post tag-old tag-hacking">
+        <a class="post-card-image-link" href="../back-to-school-vulnerabilities/index.html">
+            <div class="post-card-image" style="background-image: url(../content/images/2018/12/0_6jmzYJnucy6tl6ii.jpg)"></div>
+        </a>
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="../back-to-school-vulnerabilities/index.html">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Old Posts</span>
+                <h2 class="post-card-title">Back to School Vulnerabilities</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Back to school. It sucks. But hey, I get to see how many security vulns there are in the school’s stuff. Not that I’m saying it’s a good idea to do that. Don’t.</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+
+            <ul class="author-list">
+                <li class="author-list-item">
+
+                    <div class="author-name-tooltip">
+                        TJ Horner
+                    </div>
+
+                        <a href="../author/tj/index.html" class="static-avatar"><img class="author-profile-image" src="../content/images/2018/12/me.png" alt="TJ Horner" /></a>
+                </li>
+            </ul>
+
+            <span class="reading-time">2 min read</span>
+
+        </footer>
+    </div>
+</article>
+
+        </div>
+    </div>
+</aside>
+
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="../index.html">
+                <img src="../content/images/2018/12/smol.png" alt="TJ&#x27;s Blog icon" />
+            <span>TJ&#x27;s Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Intro to Node.js: Making a Telegram Bot</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/intent/tweet?text=Intro%20to%20Node.js%3A%20Making%20a%20Telegram%20Bot&amp;url=https%3A%2F%2Fblog.horner.tj%2Fintro-to-node-telegram-bot%2F&amp;original_referer=http%3A%2F%2Fblog.horner.tj%2Fintro-to-node-telegram-bot%2F"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+        </a>
+        <a class="floating-header-share-fb" href="https://m.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.horner.tj%2Fintro-to-node-telegram-bot%2F"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+        </a>
+    </div>
+    <progress id="reading-progress" class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+
+
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://tjhorner.com/">TJ Horner</a> &copy; 2018-2019 (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>)</section>
+                <nav class="site-footer-nav">
+                    <a href="../index.html">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/tjhorner" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="subscribe" class="subscribe-overlay">
+        <a class="subscribe-overlay-close" href="#"></a>
+        <div class="subscribe-overlay-content">
+            <h1 class="subscribe-overlay-title">Subscribe to TJ&#x27;s Blog</h1>
+            <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+            <form method="post" action="https://blog.horner.tj/subscribe/" id="" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email" placeholder="youremail@example.com" />
+    </div>
+    <button id="" class="" type="submit"><span>Subscribe</span></button>
+    
+<script>
+    (function(g,h,o,s,t){
+        var buster = function(b,m) {
+            h[o]('input.'+b).forEach(function (i) {
+                i.value=i.value || m;
+            });
+        };
+        buster('location', g.location.href);
+        buster('referrer', h.referrer);
+    })(window,document,'querySelectorAll','value');
+</script>
+
+</form>
+
+
+            <p class="subscribe-overlay-rss">You can also use the <a href="../rss/index.html" target="_blank" rel="noopener">RSS feed</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        var images = document.querySelectorAll('.kg-gallery-image img');
+        images.forEach(function (image) {
+            var container = image.closest('.kg-gallery-image');
+            var width = image.attributes.width.value;
+            var height = image.attributes.height.value;
+            var ratio = width / height;
+            container.style.flex = ratio + ' 1 0%';
+        })
+    </script>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="../assets/built/jquery.fitvids1b88.js?v=00122ac883"></script>
+
+
+    <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('#reading-progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
+</script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+<!-- Override styles set by prism -->
+<style>
+    .post-full-content pre { margin: 1.5em 0 3em !important }
+    .post-full-content p code { word-break: keep-all !important }
+</style>
+
+</body>
+
+<!-- Mirrored from blog.horner.tj/intro-to-node-telegram-bot/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 May 2019 21:33:25 GMT -->
+</html>
